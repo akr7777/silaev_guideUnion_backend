@@ -1,11 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import {InjectRepository} from "@nestjs/typeorm";
-import { User } from '../entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-
+import { User } from '../entities/users.entity';
 
 @Injectable()
 export class AuthService {
@@ -14,11 +13,9 @@ export class AuthService {
     protected userRepository: Repository<User>,
     protected jwtService: JwtService,
     private readonly configService: ConfigService,
-  ) {
-  }
+  ) {}
 
   async createAccessToken(login: string): Promise<string> {
-
     const payload = { login: login };
     return this.jwtService.sign(payload, { expiresIn: '30d' });
   }

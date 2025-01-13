@@ -11,10 +11,7 @@ export class AuthController {
     @Body('login') login: string,
     @Body('password') password: string,
   ): Promise<{ accessToken: string }> {
-    await this.authService.validateLoginUser(
-      login,
-      password,
-    );
+    await this.authService.validateLoginUser(login, password);
     const accessToken = await this.authService.createAccessToken(login);
     return { accessToken };
   }
