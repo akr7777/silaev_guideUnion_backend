@@ -6,7 +6,7 @@ export class Event {
   id: string;
 
   @Column()
-  datetime: string;
+  date: string;
 
   @Column()
   title: string;

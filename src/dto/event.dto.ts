@@ -3,7 +3,7 @@ import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateEventDto {
   @IsISO8601()
-  datetime: string;
+  date: string;
 
   @IsString()
   title: string;
