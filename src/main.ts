@@ -4,12 +4,12 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const allowedOrigins = process.env.CORS_ORIGINS.split(',')
+    .map(origin => origin.trim());
+  console.log(allowedOrigins, 'allowedOrigins');
+
   app.enableCors({
-    origin: [
-      'http://localhost:5173',
-      'https://xn----ctbbic5aaesigbxmc4a4kmey.su',
-      'https://вольные-экскурсоводы.su',
-    ],
+    origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

@@ -8,10 +8,12 @@ import {
   Delete,
   UploadedFile,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto, UpdateNewsDto } from '../dto/news.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from '../guards/jwt-guard';
 
 @Controller('news')
 export class NewsController {
@@ -27,11 +29,13 @@ export class NewsController {
     return this.newsService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
   @Post()
   createNews(@Body() createNewsDto: CreateNewsDto) {
     return this.newsService.createNews(createNewsDto);
   }
 
+  @UseGuards(AuthGuard)
   @Post('/:id/upload-photo')
   @UseInterceptors(FileInterceptor('file'))
   async uploadNPreview(
@@ -46,11 +50,13 @@ export class NewsController {
     return { message: 'Превью загружено успешно', preview: previewUrl };
   }
 
+  @UseGuards(AuthGuard)
   @Put(':id')
   updateNews(@Param('id') id: string, @Body() updateDto: UpdateNewsDto) {
     return this.newsService.updateNews(id, updateDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   deleteNews(@Param('id') id: string) {
     return this.newsService.deleteNews(id);
