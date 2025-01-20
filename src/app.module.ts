@@ -7,6 +7,8 @@ import { EventModule } from './events/events.module';
 import { NewsModule } from './news/news.module';
 import { UserModule } from './users/user.module';
 
+console.log(process.env.TOKEN_SECRET, 'process.env.TOKEN_SECRET');
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -21,14 +23,15 @@ import { UserModule } from './users/user.module';
     TypeOrmModule.forFeature([]),
     JwtModule.register({
       global: true,
-      secret: process.env.JWT ?? '123',
+      secret: process.env.TOKEN_SECRET,
     }),
     AuthModule,
     NewsModule,
     EventModule,
-    UserModule
+    UserModule,
   ],
   controllers: [],
   providers: [],
 })
+
 export class AppModule {}
